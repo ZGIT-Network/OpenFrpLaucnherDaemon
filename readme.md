@@ -1,9 +1,14 @@
-OpenFrp Launcher Daemon
 
-[启动器 Source](https://github.com/ZGIT-Network/OpenFrpLauncher/)
+# OpenFrp.Launcher Daemon
 
-2026/5/10
+Model: https://github.com/Yue3Studio/Yue3.Model
 
-Lisence: [BSD-1](./LICENSE)
+Launcher: https://github.com/ZGIT-Network/OpenFrpLauncher/
 
-by [Yue-3](https://github.com/Yue-cn)
+by [Yue3-cn](https://github.com/Yue-cn)
+
+License: [BSD-1](./LICENSE)
+
+# Donate me on WeChat!
+
+<img src="./donate-me.jpg" style="width:200px"/>
