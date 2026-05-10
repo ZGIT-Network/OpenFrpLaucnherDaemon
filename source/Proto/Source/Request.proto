@@ -1,0 +1,71 @@
+﻿syntax = "proto3";
+option csharp_namespace = "OpenFrp.Service.Proto.Request";
+import "google/protobuf/any.proto";
+
+
+message BaseRequest{
+	
+}
+message LoginRequest{
+	bytes userInfomationJson = 1;
+}
+
+message SyncWithLaunchRequest{
+	string userToken = 1;
+	TunnelStreamRequest.TunnelLaunchConfig config = 2;
+	bytes requireUserTunnels = 3;
+	map<string,string> tomlConfigMap = 4;
+}
+message SyncWithSettingRequest{
+	bool useDebug = 1;
+	bool useForceTls = 2;
+	bool useDoh = 3;
+	bool useConfigLaunch = 4;
+	string dohSource = 5;
+}
+
+message TunnelStreamRequest{
+	TunnelStreamRequestState state = 1;
+	optional google.protobuf.Any data = 2;
+
+	message TunnelLaunchReq{
+		TunnelLaunchConfig config = 1;
+		bytes originalJsonBuffer = 2;
+		oneof TunnelSource{
+			string originalFastLaunchCall = 3;
+			string originalTomlConfig = 4;
+		}
+	}
+	message TunnelLaunchConfig{
+		bool allowDisableConsoleColor = 1;
+		bool useForceTls = 2;
+		bool useDebug = 3;
+		bool useDoh = 4;
+		string dohSource = 5;
+	}
+	enum TunnelStreamRequestState{
+		Prepare = 0;
+		LaunchTunnel = 1;
+		CloseTunnel = 2;
+		GetOnlineTunnel = 3;
+	}
+}
+
+message LogStreamRequest{
+	map<int32,int32> indexMaps = 1;
+}
+
+message ClearLogRequest{
+	int32 logId = 1;
+}
+
+message DownloadFallback{
+	DownloadFallbackType state = 1;
+	optional google.protobuf.Any data = 2;
+
+	enum DownloadFallbackType {
+		Messaging = 0;
+		ProgressValue = 1;
+		SwitchSource = 2;
+	}
+}

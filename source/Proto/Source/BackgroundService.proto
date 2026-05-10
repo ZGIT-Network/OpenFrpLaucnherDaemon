@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+option csharp_namespace = "OpenFrp.Service.Proto.BackgroundService";
+import "google/protobuf/empty.proto";
+import "Proto/Source/Request.proto";
+
+
+service OpenFrpBackgroundService{
+	rpc DownloadServiceFallback(DownloadFallback) returns (google.protobuf.Empty);
+}

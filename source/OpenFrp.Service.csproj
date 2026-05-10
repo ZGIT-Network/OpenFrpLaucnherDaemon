@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net9.0-windows;net9.0-windows10.0.18362.0;net48</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Proto\Source\BackgroundService.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.34.0" />
+    <PackageReference Include="Grpc.Core" Version="2.46.6" />
+    <PackageReference Include="Grpc.StatusProto" Version="2.76.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.78.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="GrpcDotNetNamedPipes" Version="3.0.0" />
+    <PackageReference Include="Karambolo.Extensions.Logging.File" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.3.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.3.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.3.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.3.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.5" />
+    <PackageReference Include="NaCl.Net" Version="0.1.13" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+    <PackageReference Include="System.CommandLine" Version="2.0.5" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
+    <PackageReference Include="System.Net.Http.Json" Version="10.0.5" />
+	  <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+	  <PackageReference Include="System.Private.Uri" Version="4.3.2" />
+	  <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+	  <PackageReference Include="Tomlyn" Version="1.2.0" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
+	  <LangVersion>11</LangVersion>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+	  <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Yue3.Model\source\Yue3.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="Proto\Source\BackgroundService.proto" GrpcServices="Both" />
+    <Protobuf Include="Proto\Source\Request.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\Source\Response.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\Source\Service.proto" />
+  </ItemGroup>
+</Project>

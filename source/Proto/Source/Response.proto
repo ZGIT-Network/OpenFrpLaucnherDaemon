@@ -1,0 +1,106 @@
+﻿syntax = "proto3";
+option csharp_namespace = "OpenFrp.Service.Proto.Response";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message BaseResponse {
+	bool flag = 1;
+	string message = 2;
+} 
+message SyncResponse{
+	bool isLogon = 1;
+	optional int32 currentId = 2;
+	repeated int32 onlines = 3;
+}
+
+message TunnelStreamResponse{
+	TunnelStreamResponseState state = 1;
+	optional google.protobuf.Any data = 2;
+	
+	enum TunnelStreamResponseState{
+		Messaging = 0;
+		UpdateTunnel = 1;
+	}
+	message TunnelControlFailed{
+		int32 tunnelId = 1;
+		string tunnelName = 2;
+		optional google.protobuf.Any debugInfo = 3;
+	}
+	message AnonymousTunnelResponse{
+		repeated AnonymousTunnelData Datas = 1;
+		bool isNewCreate = 2;
+		message AnonymousTunnelData{
+			string name = 1;
+			string connectAddresses = 2;
+			int32 tunnelId = 3;
+		}
+	}
+}
+message LogStreamResponse{
+	LogStreamResponseState state = 1;
+	optional google.protobuf.Any data = 2;
+
+	message LogsData{
+		repeated LogContainer logs = 1;
+		int32 logId = 2;
+	}
+	message LogsLiveData{
+		repeated LogLive lives = 2;
+	}
+
+	enum LogStreamResponseState{
+		Messaging = 0;
+		UpdateLogs = 1;
+		UpdateLinks = 2;
+	}
+	message LogLive{
+		string tag = 1;
+		int32 id = 2;
+	}
+	message LogContainer {
+		string tag = 1;
+		string data = 2;
+		LogLevel level = 3;
+		google.protobuf.Timestamp date = 4;
+		int32 logId = 5;
+
+		enum LogLevel{
+			Info = 0;
+			Error = 1;
+			Warning = 2;
+			Debug = 3;
+		}
+	}
+}
+
+message NotificationStreamResponse{
+	NotificationStreamResponseState state = 1;
+	optional google.protobuf.Any data = 2;
+
+	enum NotificationStreamResponseState{
+		LaunchSuccess = 0;
+		LaunchFailed = 1;
+		Messaging = 2;
+	}
+	message LaunchFailedMsg{
+		string content = 1;
+		int32 tunnelId = 2;
+		string tunnelName = 3;
+	}
+	message LaunchSuccessMsg{
+		repeated string connectAddresses = 1;
+		repeated string extraConnectAddress = 2;
+		int32 tunnelId = 3;
+		string tunnelName = 4;
+		string tunnelType = 5;
+		string host = 6;
+		int32 port = 7;
+		bool isFastLaunch = 8;
+		bool isAutoLaunch = 9;
+	}
+	message UIWarningNotice{
+		string title = 1;
+		string data = 2;
+	}
+}

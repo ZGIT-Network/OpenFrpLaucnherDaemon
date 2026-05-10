@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+option csharp_namespace = "OpenFrp.Service.Proto.Service";
+import "google/protobuf/empty.proto";
+import "Proto/Source/Request.proto";
+import "Proto/Source/Response.proto";
+
+service OpenFrp{
+
+	rpc Sync(google.protobuf.Empty) returns (SyncResponse);
+
+	rpc SyncWithLaunch(SyncWithLaunchRequest) returns (BaseResponse);
+	rpc SyncWithSetting(SyncWithSettingRequest) returns (BaseResponse);
+	
+
+	rpc Login(LoginRequest) returns (BaseResponse);
+	rpc Logout(google.protobuf.Empty) returns (BaseResponse);
+
+	rpc ClearLog(ClearLogRequest) returns (BaseResponse);
+
+	rpc TunnelStream(stream TunnelStreamRequest) returns (stream TunnelStreamResponse);
+	rpc LogStream(LogStreamRequest) returns (stream LogStreamResponse);
+	rpc NotificationStream(google.protobuf.Empty) returns (stream NotificationStreamResponse);
+}
